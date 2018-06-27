@@ -54,6 +54,27 @@ router.get('/signin', function(req, res, next) {
 
 });
 
+//Schéma et Route post pour contact
+
+var contactSchema = mongoose.Schema({
+    name: String,
+    telephone: Number
+});
+
+var ContactModel = mongoose.model('contacts', userSchema);
+
+router.post('/addcontact', function(req, res, next) {
+  var newContact = new ContactModel ({
+    name: req.body.name,
+    telephone: req.body.telephone
+  });
+  newContact.save(
+    function (error, contact) {
+        res.json(contact);
+      }
+  );
+
+})
 
 
 module.exports = router;
